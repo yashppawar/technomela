@@ -2,31 +2,20 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-interface TypingHeroProps {
-  words?: string[];
-  interval?: number;
-  className?: string;
-}
-
-const TypingHero: React.FC<TypingHeroProps> = ({ 
-  words = ['Voice', 'Vote', 'Vision', 'Power', 'Choice', 'Future'],
-  interval = 2000,
-  className = ''
-}) => {
-  const [currentWordIndex, setCurrentWordIndex] = useState<number>(0);
+const TypingHero = () => {
+  const words = ['Optimize', 'Fix', 'Boost', 'Upgrade', 'Polish', 'Revamp'];
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const interval = setInterval(() => {
       setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, [words.length, interval]);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className={`flex flex-col items-start justify-center ${className}`}>
+    <div className="flex flex-col items-start justify-center">
       <h1 className="mb-8 text-8xl font-bold tracking-tight text-white flex items-center gap-4">
-        <span>Your</span>
         <AnimatePresence mode="wait">
           <motion.span
             key={words[currentWordIndex]}
@@ -39,6 +28,7 @@ const TypingHero: React.FC<TypingHeroProps> = ({
             {words[currentWordIndex]}
           </motion.span>
         </AnimatePresence>
+        <span>Resume</span>
       </h1>
     </div>
   );
