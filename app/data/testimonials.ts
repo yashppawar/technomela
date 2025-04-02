@@ -6,25 +6,29 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
     {
-        name: "Rajesh Kumar",
-        description: "The online voter registration process was smooth and efficient. The staff was very helpful in guiding me through the process.",
-        avatar: "/avatars/rajesh.jpg"
+        name: "Sarah Chen",
+        description:
+            "The AI analysis provided incredible insights into my resume. It helped me identify key areas for improvement and ultimately landed me my dream job in tech!",
+        avatar: "/avatars/sarah.jpg",
     },
     {
-        name: "Priya Sharma",
-        description: "I appreciate the transparency in the election process. The VVPAT system gives us confidence in the voting system.",
-        avatar: "/avatars/priya.jpg"
+        name: "Michael Rodriguez",
+        description:
+            "I was amazed by how detailed the feedback was. The keyword optimization suggestions helped my resume get past ATS systems and straight to hiring managers.",
+        avatar: "/avatars/michael.jpg",
     },
     {
-        name: "Amit Patel",
-        description: "The voter ID verification process was quick and hassle-free. Great service from the Election Commission!",
-        avatar: "/avatars/amit.jpg"
+        name: "Emily Thompson",
+        description:
+            "The real-time analysis and industry-specific recommendations were game-changing. My interview callbacks increased significantly after implementing the suggestions.",
+        avatar: "/avatars/emily.jpg",
     },
     {
-        name: "Meera Singh",
-        description: "The accessibility features for senior citizens and differently-abled voters are commendable.",
-        avatar: "/avatars/meera.jpg"
-    }
+        name: "David Park",
+        description:
+            "As a career switcher, this tool was invaluable. It helped me highlight my transferable skills and present them in a way that resonated with employers.",
+        avatar: "/avatars/david.jpg",
+    },
 ];
 
-export default testimonials; 
+export default testimonials;

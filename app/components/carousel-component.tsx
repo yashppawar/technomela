@@ -12,11 +12,10 @@ import {
 } from "@/components/ui/carousel";
 
 const backgrounds = [
-  "/assets/bg1.jpg", // Green Forest
-  "/assets/bg3.jpg", // Mountain
-  "/assets/bg2.jpg", // Grey Clouds
-  "/assets/bg6.jpg", // Water Stream
-  "/assets/bg5.jpg", // Night Camping
+  "/assets/bg1.jpg",
+  "/assets/bg3.jpg",
+  "/assets/bg2.jpg",
+  "/assets/bg5.jpg",
 ];
 
 export default function CarouselComponent() {
