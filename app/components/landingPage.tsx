@@ -42,6 +42,7 @@ export default function HeroSection() {
             asChild
             className="rounded border border-white/20 bg-white/10 px-8 py-3 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
           >
+            <Link href="/resume-analyzer">Get Analysis</Link>
           </Button>
         </div>
       </div>
