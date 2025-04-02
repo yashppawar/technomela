@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const TypingHero = () => {
-  const words = ['Optimize', 'Fix', 'Boost', 'Upgrade', 'Polish', 'Revamp'];
+  const words = ['Optimize', 'Boost', 'Upgrade', 'Polish', 'Revamp'];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
   useEffect(() => {

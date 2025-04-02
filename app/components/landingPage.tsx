@@ -24,9 +24,9 @@ export default function HeroSection() {
       className={`relative min-h-screen w-full bg-black/90 p-8 overflow-hidden ${raleway.className}`}
     >
       <CarouselComponent />
-      <div className="relative z-10 min-h-[calc(100vh-4rem)] rounded-lg border border-white/20 bg-white/5 backdrop-blur-sm flex flex-col">
+      <div className="relative z-100 min-h-[calc(100vh-4rem)] rounded-lg border border-white/20 bg-white/5 backdrop-blur-sm flex flex-col">
         <Navbar />
-        <div className="flex flex-col items-start justify-center flex-1 p-16">
+        <div className="flex flex-col items-start  flex-1 p-16">
           <h2
             className={`mb-2 text-2xl font-light text-white/80 ${lato.className}`}
           >
