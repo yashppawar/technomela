@@ -31,6 +31,11 @@ export default function Navbar() {
           <span className="">AI Based Resume Analyzer</span>
         </Link>
       </div>
+      <div className="flex items-center gap-4">
+        <Button asChild variant="outline" className="bg-white/10 text-white hover:bg-white/20 border-white/20">
+          <Link href="/resume-analyzer">Get Analysis</Link>
+        </Button>
+      </div>
     </nav>
   );
 }
