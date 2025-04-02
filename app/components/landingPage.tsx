@@ -45,6 +45,7 @@ export default function HeroSection() {
           </Button>
         </div>
       </div>
+      <Testimonials />
     </div>
   );
 }
