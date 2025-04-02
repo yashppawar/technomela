@@ -1,16 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LogIn, Shield, UserPlus, UserRound } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSub,
-  DropdownMenuSeparator,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
@@ -30,11 +19,6 @@ export default function Navbar() {
           />
           <span className="">AI Based Resume Analyzer</span>
         </Link>
-      </div>
-      <div className="flex items-center gap-4">
-        <Button asChild variant="outline" className="bg-white/10 text-white hover:bg-white/20 border-white/20">
-          <Link href="/resume-analyzer">Get Analysis</Link>
-        </Button>
       </div>
     </nav>
   );

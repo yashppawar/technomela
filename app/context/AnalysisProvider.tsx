@@ -1,46 +1,28 @@
-"use client";
+'use client';
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from 'react';
+import type { ResumeAnalysis } from '../actions/analyze-resume';
 
 interface AnalysisContextType {
-    processedAnalysis: {
-        strengths: string[];
-        improvements: string[];
-        summary: string;
-        score: number;
-    } | null;
-    rawText: string | null;
-    setProcessedAnalysis: (analysis: any) => void;
-    setRawText: (text: string | null) => void;
+    analysis: ResumeAnalysis | null;
+    setAnalysis: (analysis: ResumeAnalysis | null) => void;
 }
 
 export const AnalysisContext = createContext<AnalysisContextType>({
-    processedAnalysis: null,
-    rawText: null,
-    setProcessedAnalysis: () => {},
-    setRawText: () => {},
+    analysis: null,
+    setAnalysis: () => {},
 });
 
 export const useAnalysis = () => useContext(AnalysisContext);
 
 export function AnalysisProvider({ children }: { children: ReactNode }) {
-    const [processedAnalysis, setProcessedAnalysis] = useState<{
-        strengths: string[];
-        improvements: string[];
-        summary: string;
-        score: number;
-    } | null>(null);
-    const [rawText, setRawText] = useState<string | null>(null);
+    const [analysis, setAnalysis] = useState<ResumeAnalysis | null>(null);
 
     return (
-        <AnalysisContext.Provider
-            value={{
-                processedAnalysis,
-                rawText,
-                setProcessedAnalysis,
-                setRawText,
-            }}
-        >
+        <AnalysisContext.Provider value={{ 
+            analysis,
+            setAnalysis
+        }}>
             {children}
         </AnalysisContext.Provider>
     );

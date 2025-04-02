@@ -1,22 +1,12 @@
-"use client";
+'use client';
 
-import { useState, useRef } from "react";
+import { useState, useRef } from 'react';
 import { Button } from "@/components/ui/button";
-import {
-    Upload,
-    FileText,
-    CheckCircle,
-    AlertCircle,
-    ArrowRight,
-    Zap,
-    Lock,
-    BarChart,
-    Loader2,
-} from "lucide-react";
+import { Upload, FileText, CheckCircle, AlertCircle, ArrowRight, Zap, Lock, BarChart, Loader2 } from 'lucide-react';
 import { Raleway, Lato } from "next/font/google";
-import Navbar from "./navbar";
-import { useRouter } from "next/navigation";
-import { useAnalysis } from "../context/AnalysisProvider";
+import Navbar from './navbar';
+import { useRouter } from 'next/navigation';
+import { useAnalysis } from '../context/AnalysisProvider';
 
 // Adding Raleway and Lato fonts
 const raleway = Raleway({
@@ -29,58 +19,13 @@ const lato = Lato({
     weight: ["300", "400", "700"],
 });
 
-function extractStrengthsAndImprovements(text: string): {
-    strengths: string[];
-    improvements: string[];
-    summary: string;
-    score: number;
-} {
-    const lines = text.split("\n");
-    const result = {
-        strengths: [] as string[],
-        improvements: [] as string[],
-        summary: "",
-        score: 0,
-    };
-
-    let currentSection = "";
-    for (const line of lines) {
-        if (line.includes("ATS compatibility score:")) {
-            result.score = parseInt(line.match(/\d+/)?.[0] || "70");
-        } else if (line.includes("Key strengths:")) {
-            currentSection = "strengths";
-        } else if (line.includes("Areas for improvement:")) {
-            currentSection = "improvements";
-        } else if (line.includes("Overall impression:")) {
-            currentSection = "summary";
-        } else if (line.trim().startsWith("-") || line.trim().startsWith("•")) {
-            const point = line.replace(/^[-•]\s*/, "").trim();
-            if (currentSection === "strengths") {
-                result.strengths.push(point);
-            } else if (currentSection === "improvements") {
-                result.improvements.push(point);
-            }
-        } else if (
-            currentSection === "summary" &&
-            line.trim() &&
-            !line.includes(":")
-        ) {
-            result.summary = line.trim();
-        }
-    }
-
-    return result;
-}
-
 export default function UploadResume() {
     const router = useRouter();
-    const { setProcessedAnalysis, setRawText } = useAnalysis();
+    const { setAnalysis } = useAnalysis();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [file, setFile] = useState<File | null>(null);
     const [isDragging, setIsDragging] = useState(false);
-    const [uploadStatus, setUploadStatus] = useState<
-        "idle" | "success" | "error"
-    >("idle");
+    const [uploadStatus, setUploadStatus] = useState<'idle' | 'success' | 'error'>('idle');
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -131,32 +76,29 @@ export default function UploadResume() {
             setError(null);
 
             const formData = new FormData();
-            formData.append("resume", file);
+            formData.append('resume', file);
 
-            const response = await fetch("/api/upload", {
-                method: "POST",
+            const response = await fetch('/api/upload', {
+                method: 'POST',
                 body: formData,
             });
 
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || "Failed to analyze resume");
+                throw new Error(data.error || 'Failed to analyze resume');
             }
 
-            // Store both processed analysis and raw text
-            const processed = extractStrengthsAndImprovements(
-                data.aiAnalysis.text
-            );
-            setProcessedAnalysis(processed);
-            setRawText(data.aiAnalysis.text);
-
+            // Store analysis in context
+            setAnalysis(data.analysis);
+            
             // Navigate to analysis page
-            router.push("/analysis");
+            router.push('/analysis');
+
         } catch (err: any) {
-            console.error("Error analyzing resume:", err);
-            setError(err.message || "An error occurred during analysis");
-            setUploadStatus("error");
+            console.error('Error analyzing resume:', err);
+            setError(err.message || 'An error occurred during analysis');
+            setUploadStatus('error');
         } finally {
             setIsAnalyzing(false);
         }
@@ -238,14 +180,10 @@ export default function UploadResume() {
                             <div className="w-10 h-10 rounded-full bg-[#00d9ff]/20 flex items-center justify-center mb-2">
                                 <Zap className="h-5 w-5 text-[#00d9ff]" />
                             </div>
-                            <h3
-                                className={`text-white text-sm font-medium mb-1 ${raleway.className}`}
-                            >
+                            <h3 className={`text-white text-sm font-medium mb-1 ${raleway.className}`}>
                                 Instant Analysis
                             </h3>
-                            <p
-                                className={`text-white/60 text-xs ${lato.className}`}
-                            >
+                            <p className={`text-white/60 text-xs ${lato.className}`}>
                                 Get results in seconds
                             </p>
                         </div>
@@ -254,14 +192,10 @@ export default function UploadResume() {
                             <div className="w-10 h-10 rounded-full bg-[#ff5e98]/20 flex items-center justify-center mb-2">
                                 <Lock className="h-5 w-5 text-[#ff5e98]" />
                             </div>
-                            <h3
-                                className={`text-white text-sm font-medium mb-1 ${raleway.className}`}
-                            >
+                            <h3 className={`text-white text-sm font-medium mb-1 ${raleway.className}`}>
                                 Private & Secure
                             </h3>
-                            <p
-                                className={`text-white/60 text-xs ${lato.className}`}
-                            >
+                            <p className={`text-white/60 text-xs ${lato.className}`}>
                                 Your data stays confidential
                             </p>
                         </div>
@@ -270,14 +204,10 @@ export default function UploadResume() {
                             <div className="w-10 h-10 rounded-full bg-[#674cd7]/20 flex items-center justify-center mb-2">
                                 <BarChart className="h-5 w-5 text-[#674cd7]" />
                             </div>
-                            <h3
-                                className={`text-white text-sm font-medium mb-1 ${raleway.className}`}
-                            >
+                            <h3 className={`text-white text-sm font-medium mb-1 ${raleway.className}`}>
                                 Detailed Insights
                             </h3>
-                            <p
-                                className={`text-white/60 text-xs ${lato.className}`}
-                            >
+                            <p className={`text-white/60 text-xs ${lato.className}`}>
                                 Comprehensive feedback
                             </p>
                         </div>
@@ -417,20 +347,16 @@ export default function UploadResume() {
                                     `}
                                 >
                                     {isAnalyzing ? (
-                                        <>
-                                            <Loader2 className="h-4 w-4 animate-spin" />
-                                            Analyzing...
-                                        </>
-                                    ) : (
-                                        <>
-                                            {file
-                                                ? "Analyze Resume"
-                                                : "Upload Resume First"}
-                                            {file && (
-                                                <ArrowRight className="h-4 w-4" />
-                                            )}
-                                        </>
-                                    )}
+                                    <>
+                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                        Analyzing...
+                                    </>
+                                ) : (
+                                    <>
+                                        {file ? 'Analyze Resume' : 'Upload Resume First'} 
+                                        {file && <ArrowRight className="h-4 w-4" />}
+                                    </>
+                                )}
                                 </Button>
                             </div>
                         </div>
